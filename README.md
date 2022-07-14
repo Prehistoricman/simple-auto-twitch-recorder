@@ -12,6 +12,7 @@ Install Python 3. Use pip to install streamlink with this command:
 * File name has the stream title
 * If a stream title is not yet available, recording starts immediately and renames the video file later
 * Streamer name can be passed in via command line
+* Fancy spinner to stare at like a washing machine
 * No need for API keys
 
 ## Usage
