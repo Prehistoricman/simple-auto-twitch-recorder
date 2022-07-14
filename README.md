@@ -14,5 +14,18 @@ Install Python 3. Use pip to install streamlink with this command:
 * Streamer name can be passed in via command line
 * No need for API keys
 
+## Usage
+In your system's terminal, execute the script to record the default streamer:
+
+`python twitch_recorder.py`
+
+Depending on your system and install, the name of python may be python3 or python3.8, python3.9, etc.
+
+To record a different streamer to the default, type their name after the script name:
+
+`python twitch_recorder.py vargskelethor`
+
+To change the default streamer, edit the string at the top of the script where it says `streamer = "..."`
+
 ## Issues
 After the first stream has been recorded, it spams the console with errors from streamlink. 
