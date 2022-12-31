@@ -5,8 +5,15 @@ import streamlink
 session = streamlink.Streamlink()
 
 streamer = "paymoneywubby" #Default streamer
+files_directory = "./" #Default videos location
+
 if len(sys.argv) >= 2: #Take command line argument for streamer name
     streamer = sys.argv[1]
+if len(sys.argv) >= 3: #Take command line argument for file location
+    files_directory = sys.argv[2]
+    #Make sure the path ends in a slash
+    if files_directory[-1] != "/" and files_directory[-1] != "\\":
+        files_directory += "/"
 
 session.set_plugin_option("twitch", "disable_hosting", 1) #Don't record a host or raid
 session.set_option("stream-timeout", 30)
@@ -70,6 +77,8 @@ while True:
             filepath = "%s_%s_%s.ts" % (streamer, stream_title, start_time_str)
             #Filter out invalid chars from the file name
             filepath = "".join(c for c in filepath if c not in "\/:*?<>|")
+            #Prepend the directory path
+            filepath = files_directory + filepath
             return filepath
 
         start_time_str = time.strftime("%Y-%m-%d_%H-%M")
@@ -111,18 +120,22 @@ while True:
                         out_file.write(data)
                         print("\rMegabytes: %0.2f" % (total_bytes / 1000000), end="         ")
                         
-                        if stream_title == "None":
+                        if stream_title == "None" and not firstrun:
                             #See if we can get an updated title
                             newtitle = getStreamTitle()
                             if newtitle != "None":
                                 rename = True
                                 stream_title = newtitle
-                                break;
+                                break
                     
         except streamlink.StreamError as err:
-            print('StreamError: {0}'.format(err)) # TODO: test when this happens
+            print('StreamError: {0}'.format(err))
 
         print()
-    except Exception as e:
-        if e is KeyboardInterrupt:
-            exit()
+    except FileNotFoundError as e: #Occurs when the file path doesn't exist
+        print(e)
+        exit()
+    except KeyboardInterrupt:
+        exit()
+    except Exception:
+        pass
