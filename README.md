@@ -1,5 +1,7 @@
 # Simple automatic Twitch stream recorder
-Record Twitch streams live with streamlink. The stream is polled for being live. Output files are .ts MPEG-2 which is a convenient, if not very space-efficient, video format because you can append two .ts files to play one after the other.
+Record Twitch streams live with streamlink. The stream is polled for being live. Output files are .ts MPEG-2
+which is a convenient, if not very space-efficient, video format because you can append two .ts files to play
+one after the other.
 
 ## Install
 Install Python 3. Use pip to install streamlink with this command:
@@ -27,6 +29,16 @@ To record a different streamer to the default, type their name after the script 
 `python twitch_recorder.py vargskelethor`
 
 To change the default streamer, edit the string at the top of the script where it says `streamer = "..."`
+
+To save the videos in a different directory, write a second argument to the script with the path:
+
+`python twitch_recorder.py drdisrespect ../videos/`
+
+The directory it points to must exist already. The script will not create the given directory and will error
+if it doesn't exist.
+
+The default file save location is also at the top of the script. It is "./" which is the current directory
+of the terminal that launches python. 
 
 ## Issues
 After the first stream has been recorded, it spams the console with errors from streamlink. 
